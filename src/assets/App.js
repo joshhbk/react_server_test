@@ -5,7 +5,17 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { fixtures: props.data}
+
+    let fixtures;
+
+    if (props.data) {
+      fixtures = props.data;
+    } else {
+      fixtures = window.__data__;
+      delete window.__data__;
+    }
+
+    this.state = { fixtures }
   }
 
     render() {
@@ -15,9 +25,8 @@ class App extends Component {
               <h1>Test</h1>
             </div>
             <ul>
-              {this.state.fixtures.map(fixture => <li>{fixture.competitionDate}</li>)}
+              {this.state.fixtures.map !== undefined && this.state.fixtures.map(fixture => <li>{fixture.competitionDate}</li>)}              
             </ul>
-            <p>Test test test</p>
           </div>
         )
     }

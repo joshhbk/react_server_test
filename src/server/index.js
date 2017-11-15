@@ -1,6 +1,7 @@
 import express from 'express';
 import React from 'react';
 import {renderToString} from 'react-dom/server';
+import serialize from 'serialize';
 import App from '../assets/App';
 import fixtures from '../../data/competition-id-10.json';
 import 'isomorphic-fetch';
@@ -23,6 +24,7 @@ app.get('*', (req, res) => {
             <title>Sportdec Test</title>
             <link rel='stylesheet' href='/css/main.css'>
             <script src='/bundle.js' defer></script>
+            <script>window.__data__ = ${serialize(data)}</script>
           </head>
 
           <body>

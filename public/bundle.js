@@ -18286,7 +18286,16 @@ var App = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-    _this.state = { fixtures: props.data };
+    var fixtures = void 0;
+
+    if (props.data) {
+      fixtures = props.data;
+    } else {
+      fixtures = window.__data__;
+      delete window.__data__;
+    }
+
+    _this.state = { fixtures: fixtures };
     return _this;
   }
 
@@ -18300,7 +18309,7 @@ var App = function (_Component) {
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 13
+            lineNumber: 23
           },
           __self: this
         },
@@ -18309,7 +18318,7 @@ var App = function (_Component) {
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 14
+              lineNumber: 24
             },
             __self: this
           },
@@ -18318,7 +18327,7 @@ var App = function (_Component) {
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 15
+                lineNumber: 25
               },
               __self: this
             },
@@ -18330,34 +18339,23 @@ var App = function (_Component) {
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 17
+              lineNumber: 27
             },
             __self: this
           },
-          this.state.fixtures.map(function (fixture) {
+          this.state.fixtures.map !== undefined && this.state.fixtures.map(function (fixture) {
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'li',
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 18
+                  lineNumber: 28
                 },
                 __self: _this2
               },
               fixture.competitionDate
             );
           })
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'p',
-          {
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 20
-            },
-            __self: this
-          },
-          'Test test test'
         )
       );
     }
