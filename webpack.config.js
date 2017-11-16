@@ -27,11 +27,6 @@ const browserConfig = {
       },
     ],
   },
-  plugins: [
-    new ExtractTextPlugin({
-      filename: 'public/css/[name].css',
-    })
-  ],
 }
 
 const serverConfig = {
