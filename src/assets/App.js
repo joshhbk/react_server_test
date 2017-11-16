@@ -52,13 +52,13 @@ class App extends Component {
 }
 
 const styles = StyleSheet.create({
-    grey: {
-        backgroundColor: 'grey'
-    },
-    hover: {
-        ':hover': {
-            backgroundColor: 'red'
-        }
+  grey: {
+    backgroundColor: 'grey'
+  },
+  hover: {
+    ':hover': {
+      backgroundColor: 'red'
     }
+  }
 });
 export default App;
