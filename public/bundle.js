@@ -18271,16 +18271,30 @@ class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
     if (props.data) {
       fixtures = props.data;
     } else {
-      console.log(window.__data__);
       fixtures = window.__data__;
       delete window.__data__;
     }
 
     this.state = { fixtures };
   }
+
   testClick() {
     console.log('test');
   }
+
+  fetchInfo() {
+    console.log('ran');
+  }
+
+  componentDidMount() {
+    const intervalFetch = setInterval(this.fetchInfo, 30000);
+    this.setState({ intervalFetch });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.intervalFetch);
+  }
+
   render() {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
