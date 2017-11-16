@@ -1,6 +1,5 @@
 const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const autoprefixer = require("autoprefixer");
 
 const browserConfig = {
   entry: './src/client/index.js',
