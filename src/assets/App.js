@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, css } from 'aphrodite';
-import './App.css';
 
 class App extends Component {
 
@@ -38,7 +37,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className={css(styles.red)}>
+      <div className={css(styles.grey, styles.hover)}>
         <div>
           <h1>Test</h1>
         </div>
@@ -53,23 +52,12 @@ class App extends Component {
 }
 
 const styles = StyleSheet.create({
-    red: {
-        backgroundColor: 'red'
+    grey: {
+        backgroundColor: 'grey'
     },
-
-    blue: {
-        backgroundColor: 'blue'
-    },
-
     hover: {
         ':hover': {
             backgroundColor: 'red'
-        }
-    },
-
-    small: {
-        '@media (max-width: 600px)': {
-            backgroundColor: 'red',
         }
     }
 });

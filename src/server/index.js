@@ -26,7 +26,6 @@ app.get('*', (req, res) => {
         <html>
           <head>
             <title>Sportdec Test</title>
-            <link rel='stylesheet' href='/css/main.css'>
             <script src='/bundle.js' defer></script>
             <script>window.__data__ = ${JSON.stringify(data)}</script>
             <style data-aphrodite>${css.content}</style>
@@ -34,7 +33,7 @@ app.get('*', (req, res) => {
 
           <body>
             <div id='root'>${html}</div>
-            <script>StyleSheet.rehydrate(${JSON.stringify(css.renderedClassNames)});</script>
+            <script>window.renderedClassNames = ${JSON.stringify(css.renderedClassNames)};</script>
           </body>
         </html>`
         );

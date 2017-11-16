@@ -20,21 +20,6 @@ const browserConfig = {
         }
       },
       {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          use: [
-            {
-              loader: "css-loader",
-              options: { importLoaders: 1 }
-            },
-            {
-              loader: "postcss-loader",
-              options: { plugins: [autoprefixer()] }
-            }
-          ]          
-        })
-      },
-      {
         test: /js$/,
         exclude: /(node_modules)/,
         loader: 'babel-loader',
@@ -71,14 +56,6 @@ const serverConfig = {
           publicPath: url => url.replace(/public/, ""),
           emit: false
         }
-      },
-      {
-        test: /\.css$/,
-        use: [
-          {
-            loader: "css-loader/locals"
-          }
-        ]
       },
       {
         test: /js$/,
