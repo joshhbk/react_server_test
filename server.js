@@ -82,48 +82,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom_server__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom_server___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_dom_server__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_serialize__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_serialize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_serialize__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__assets_App__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__data_competition_id_10_json__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__data_competition_id_10_json___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__data_competition_id_10_json__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_isomorphic_fetch__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_isomorphic_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_isomorphic_fetch__);
-var _jsxFileName = '/Users/joshuahughes/apps/react_server_test/src/server/index.js',
-    _this = this;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__assets_App__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__data_competition_id_10_json__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__data_competition_id_10_json___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__data_competition_id_10_json__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_isomorphic_fetch__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_isomorphic_fetch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_isomorphic_fetch__);
 
 
 
 
 
 
-
-
-var app = __WEBPACK_IMPORTED_MODULE_0_express___default()();
+const app = __WEBPACK_IMPORTED_MODULE_0_express___default()();
 
 app.use(__WEBPACK_IMPORTED_MODULE_0_express___default.a.static('public'));
 
-app.get('/fixtures', function (req, res) {
-  res.json(__WEBPACK_IMPORTED_MODULE_5__data_competition_id_10_json___default.a);
+app.get('/fixtures', (req, res) => {
+  res.json(__WEBPACK_IMPORTED_MODULE_4__data_competition_id_10_json___default.a);
 });
 
-app.get('*', function (req, res) {
-  fetch('http://localhost:3000/fixtures').then(function (response) {
-    return response.json();
-  }).then(function (data) {
-    var fixtures = Object(__WEBPACK_IMPORTED_MODULE_2_react_dom_server__["renderToString"])(__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__assets_App__["a" /* default */], { data: data, __source: {
-        fileName: _jsxFileName,
-        lineNumber: 20
-      },
-      __self: _this
-    }));
-    res.send('\n        <html>\n          <head>\n            <title>Sportdec Test</title>\n            <link rel=\'stylesheet\' href=\'/css/main.css\'>\n            <script src=\'/bundle.js\' defer></script>\n            <script>window.__data__ = ' + __WEBPACK_IMPORTED_MODULE_3_serialize___default()(data) + '</script>\n          </head>\n\n          <body>\n            <div id=\'root\'>' + fixtures + '</div>\n          </body>\n        </html>');
+app.get('*', (req, res) => {
+  fetch('http://localhost:3000/fixtures').then(response => response.json()).then(data => {
+    const fixtureList = Object(__WEBPACK_IMPORTED_MODULE_2_react_dom_server__["renderToString"])(__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__assets_App__["a" /* default */], { data: data }));
+    res.send(`
+        <html>
+          <head>
+            <title>Sportdec Test</title>
+            <link rel='stylesheet' href='/css/main.css'>
+            <script src='/bundle.js' defer></script>
+            <script>window.__data__ = ${JSON.stringify(data)}</script>
+          </head>
+
+          <body>
+            <div id='root'>${fixtureList}</div>
+          </body>
+        </html>`);
   });
 });
 
-app.listen(3000, function () {
-  return console.log('Running at port 3000');
-});
+app.listen(3000, () => console.log('Running at port 3000'));
 
 /***/ }),
 /* 2 */
@@ -138,12 +135,7 @@ module.exports = require("express");
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-module.exports = require("serialize");
-
-/***/ }),
+/* 4 */,
 /* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -152,104 +144,60 @@ module.exports = require("serialize");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__App_css__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__App_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__App_css__);
-var _jsxFileName = '/Users/joshuahughes/apps/react_server_test/src/assets/App.js';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
 
+class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
-var App = function (_Component) {
-  _inherits(App, _Component);
+  constructor(props) {
+    super(props);
 
-  function App(props) {
-    _classCallCheck(this, App);
-
-    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
-
-    var fixtures = void 0;
+    let fixtures;
 
     if (props.data) {
       fixtures = props.data;
     } else {
+      console.log(window.__data__);
       fixtures = window.__data__;
       delete window.__data__;
     }
 
-    _this.state = { fixtures: fixtures };
-    return _this;
+    this.state = { fixtures };
   }
-
-  _createClass(App, [{
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+  testClick() {
+    console.log('test');
+  }
+  render() {
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      null,
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
-        {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 23
-          },
-          __self: this
-        },
+        null,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          {
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 24
-            },
-            __self: this
-          },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'h1',
-            {
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 25
-              },
-              __self: this
-            },
-            'Test'
-          )
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'ul',
-          {
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 27
-            },
-            __self: this
-          },
-          this.state.fixtures.map !== undefined && this.state.fixtures.map(function (fixture) {
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'li',
-              {
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 28
-                },
-                __self: _this2
-              },
-              fixture.competitionDate
-            );
-          })
+          'h1',
+          null,
+          'Test'
         )
-      );
-    }
-  }]);
-
-  return App;
-}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'ul',
+        null,
+        this.state.fixtures.map((fixture, i) => {
+          return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'li',
+            { key: i },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'a',
+              { onClick: this.testClick },
+              fixture.competitionDate
+            )
+          );
+        })
+      )
+    );
+  }
+}
 
 /* harmony default export */ __webpack_exports__["a"] = (App);
 

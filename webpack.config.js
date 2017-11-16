@@ -38,7 +38,7 @@ const browserConfig = {
         test: /js$/,
         exclude: /(node_modules)/,
         loader: 'babel-loader',
-        query: {presets: ['react-app']},
+        query: {presets: ['react','stage-0']},
       },
     ],
   },
@@ -84,7 +84,7 @@ const serverConfig = {
         test: /js$/,
         exclude: /(node_modules)/,
         loader: "babel-loader",
-        query: { presets: ["react-app"] }
+        query: {presets: ['react','stage-0']},
       }
     ]
   }

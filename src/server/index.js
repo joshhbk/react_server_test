@@ -1,7 +1,6 @@
 import express from 'express';
 import React from 'react';
 import {renderToString} from 'react-dom/server';
-import serialize from 'serialize';
 import App from '../assets/App';
 import fixtures from '../../data/competition-id-10.json';
 import 'isomorphic-fetch';
@@ -17,18 +16,18 @@ app.get('*', (req, res) => {
   fetch('http://localhost:3000/fixtures')
     .then(response => response.json())
     .then(data => {
-      const fixtures = renderToString(<App data={data} />);
+      const fixtureList = renderToString(<App data={data} />);
       res.send(`
         <html>
           <head>
             <title>Sportdec Test</title>
             <link rel='stylesheet' href='/css/main.css'>
             <script src='/bundle.js' defer></script>
-            <script>window.__data__ = ${serialize(data)}</script>
+            <script>window.__data__ = ${JSON.stringify(data)}</script>
           </head>
 
           <body>
-            <div id='root'>${fixtures}</div>
+            <div id='root'>${fixtureList}</div>
           </body>
         </html>`
         );

@@ -944,18 +944,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__assets_App__ = __webpack_require__(27);
-var _jsxFileName = '/Users/joshuahughes/apps/react_server_test/src/client/index.js';
 
 
 
 
-Object(__WEBPACK_IMPORTED_MODULE_1_react_dom__["render"])(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__assets_App__["a" /* default */], {
-  __source: {
-    fileName: _jsxFileName,
-    lineNumber: 5
-  },
-  __self: this
-}), document.getElementById('root'));
+Object(__WEBPACK_IMPORTED_MODULE_1_react_dom__["hydrate"])(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__assets_App__["a" /* default */], null), document.getElementById('root'));
 
 /***/ }),
 /* 15 */
@@ -18265,104 +18258,60 @@ module.exports = camelize;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__App_css__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__App_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__App_css__);
-var _jsxFileName = '/Users/joshuahughes/apps/react_server_test/src/assets/App.js';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
 
+class App extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
 
-var App = function (_Component) {
-  _inherits(App, _Component);
+  constructor(props) {
+    super(props);
 
-  function App(props) {
-    _classCallCheck(this, App);
-
-    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
-
-    var fixtures = void 0;
+    let fixtures;
 
     if (props.data) {
       fixtures = props.data;
     } else {
+      console.log(window.__data__);
       fixtures = window.__data__;
       delete window.__data__;
     }
 
-    _this.state = { fixtures: fixtures };
-    return _this;
+    this.state = { fixtures };
   }
-
-  _createClass(App, [{
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+  testClick() {
+    console.log('test');
+  }
+  render() {
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      null,
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
-        {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 23
-          },
-          __self: this
-        },
+        null,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          {
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 24
-            },
-            __self: this
-          },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'h1',
-            {
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 25
-              },
-              __self: this
-            },
-            'Test'
-          )
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'ul',
-          {
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 27
-            },
-            __self: this
-          },
-          this.state.fixtures.map !== undefined && this.state.fixtures.map(function (fixture) {
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'li',
-              {
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 28
-                },
-                __self: _this2
-              },
-              fixture.competitionDate
-            );
-          })
+          'h1',
+          null,
+          'Test'
         )
-      );
-    }
-  }]);
-
-  return App;
-}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'ul',
+        null,
+        this.state.fixtures.map((fixture, i) => {
+          return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'li',
+            { key: i },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'a',
+              { onClick: this.testClick },
+              fixture.competitionDate
+            )
+          );
+        })
+      )
+    );
+  }
+}
 
 /* harmony default export */ __webpack_exports__["a"] = (App);
 
