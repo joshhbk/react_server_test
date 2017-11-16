@@ -1,6 +1,7 @@
 import express from 'express';
 import React from 'react';
 import {renderToString} from 'react-dom/server';
+import {StyleSheetServer} from 'aphrodite';
 import App from '../assets/App';
 import fixtures from '../../data/competition-id-10.json';
 import 'isomorphic-fetch';
@@ -16,7 +17,11 @@ app.get('*', (req, res) => {
   fetch('http://localhost:3000/fixtures')
     .then(response => response.json())
     .then(data => {
-      const fixtureList = renderToString(<App data={data} />);
+
+      const {html, css} = StyleSheetServer.renderStatic(() => {
+          return renderToString(<App data={data} />);
+      });
+
       res.send(`
         <html>
           <head>
@@ -24,10 +29,12 @@ app.get('*', (req, res) => {
             <link rel='stylesheet' href='/css/main.css'>
             <script src='/bundle.js' defer></script>
             <script>window.__data__ = ${JSON.stringify(data)}</script>
+            <style data-aphrodite>${css.content}</style>
           </head>
 
           <body>
-            <div id='root'>${fixtureList}</div>
+            <div id='root'>${html}</div>
+            <script>StyleSheet.rehydrate(${JSON.stringify(css.renderedClassNames)});</script>
           </body>
         </html>`
         );
