@@ -8,22 +8,19 @@ import fixtures from '../../data/competition-id-10.json';
 import 'isomorphic-fetch';
 const app = express();
 
-const cache = (duration) => {
-  return (req, res, next) => {
-    let key = '__express__' + req.originalUrl || req.url
-    let cachedBody = mcache.get(key)
-    if (cachedBody) {
-      console.log(cachedBody)
-      res.send(cachedBody)
-      return
-    } else {
-      res.sendResponse = res.send
-      res.send = (body) => {
-        mcache.put(key, body, duration * 1000);
-        res.sendResponse(body)
-      }
-      next()
+const cache = (duration) => (req, res, next) => {
+  const key = '__express__' + req.originalUrl || req.url;
+  const cachedBody = mcache.get(key);
+
+  if (cachedBody) {
+    res.send(cachedBody);
+  } else {
+    res.sendResponse = res.send;
+    res.send = (body) => {
+      mcache.put(key, body, duration * 1000);
+      res.sendResponse(body);
     }
+    next();
   }
 }
 
@@ -41,6 +38,8 @@ app.get('*', cache(30), (req, res) => {
       const {html, css} = StyleSheetServer.renderStatic(() => {
           return renderToString(<App data={data} />);
       });
+      setTimeout(() => {
+
       res.send(`
         <html>
           <head>
@@ -52,10 +51,14 @@ app.get('*', cache(30), (req, res) => {
 
           <body>
             <div id='root'>${html}</div>
-            <script>window.renderedClassNames = ${JSON.stringify(css.renderedClassNames)};</script>
+            <script>
+              window.renderedClassNames = ${JSON.stringify(css.renderedClassNames)};
+            </script>
           </body>
         </html>`
       );
+    }, 5000) //setTimeout was used to simulate a slow processing request
+
     })
 });
 

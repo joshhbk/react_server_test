@@ -107,23 +107,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 const app = __WEBPACK_IMPORTED_MODULE_0_express___default()();
 
-const cache = duration => {
-  return (req, res, next) => {
-    let key = '__express__' + req.originalUrl || req.url;
-    let cachedBody = __WEBPACK_IMPORTED_MODULE_1_memory_cache___default.a.get(key);
-    if (cachedBody) {
-      console.log(cachedBody);
-      res.send(cachedBody);
-      return;
-    } else {
-      res.sendResponse = res.send;
-      res.send = body => {
-        __WEBPACK_IMPORTED_MODULE_1_memory_cache___default.a.put(key, body, duration * 1000);
-        res.sendResponse(body);
-      };
-      next();
-    }
-  };
+const cache = duration => (req, res, next) => {
+  const key = '__express__' + req.originalUrl || req.url;
+  const cachedBody = __WEBPACK_IMPORTED_MODULE_1_memory_cache___default.a.get(key);
+
+  if (cachedBody) {
+    res.send(cachedBody);
+  } else {
+    res.sendResponse = res.send;
+    res.send = body => {
+      __WEBPACK_IMPORTED_MODULE_1_memory_cache___default.a.put(key, body, duration * 1000);
+      res.sendResponse(body);
+    };
+    next();
+  }
 };
 
 app.use(__WEBPACK_IMPORTED_MODULE_0_express___default.a.static('public'));
@@ -138,7 +135,9 @@ app.get('*', cache(30), (req, res) => {
     const { html, css } = __WEBPACK_IMPORTED_MODULE_4_aphrodite__["StyleSheetServer"].renderStatic(() => {
       return Object(__WEBPACK_IMPORTED_MODULE_3_react_dom_server__["renderToString"])(__WEBPACK_IMPORTED_MODULE_2_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__assets_App__["a" /* default */], { data: data }));
     });
-    res.send(`
+    setTimeout(() => {
+
+      res.send(`
         <html>
           <head>
             <title>Sportdec Test</title>
@@ -149,9 +148,12 @@ app.get('*', cache(30), (req, res) => {
 
           <body>
             <div id='root'>${html}</div>
-            <script>window.renderedClassNames = ${JSON.stringify(css.renderedClassNames)};</script>
+            <script>
+              window.renderedClassNames = ${JSON.stringify(css.renderedClassNames)};
+            </script>
           </body>
         </html>`);
+    }, 5000); //setTimeout was used to simulate a slow processing request
   });
 });
 
