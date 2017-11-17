@@ -37,9 +37,11 @@ app.get('*', cache(30), (req, res) => {
   fetch('http://localhost:3000/fixtures')
     .then(response => response.json())
     .then(data => {
-      console.log('got here')
+
       const context = {data};
+
       const {html, css} = StyleSheetServer.renderStatic(() => {
+        console.log(req.url)
         return renderToString(
           <StaticRouter location={req.url} context={context}>
             <App />
