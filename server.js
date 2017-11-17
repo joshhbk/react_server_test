@@ -252,7 +252,16 @@ class Fixtures extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
     console.log('ran');
   }
 
+  static requestInitialData() {
+    return fetch("http://localhost:3000/fixtures").then(response => response.json()).catch(error => console.log(error));
+  }
+
   componentDidMount() {
+
+    if (!this.state.fixtures) {
+      Fixtures.requestInitialData().then(fixtures => this.setState({ fixtures }));
+    }
+
     const intervalFetch = setInterval(this.fetchInfo, 30000);
     this.setState({ intervalFetch });
   }
