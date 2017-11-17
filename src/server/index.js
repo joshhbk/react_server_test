@@ -1,4 +1,5 @@
 import express from 'express';
+import mcache from 'memory-cache';
 import React from 'react';
 import {renderToString} from 'react-dom/server';
 import {StyleSheetServer} from 'aphrodite';
@@ -7,13 +8,32 @@ import fixtures from '../../data/competition-id-10.json';
 import 'isomorphic-fetch';
 const app = express();
 
+const cache = (duration) => {
+  return (req, res, next) => {
+    let key = '__express__' + req.originalUrl || req.url
+    let cachedBody = mcache.get(key)
+    if (cachedBody) {
+      console.log(cachedBody)
+      res.send(cachedBody)
+      return
+    } else {
+      res.sendResponse = res.send
+      res.send = (body) => {
+        mcache.put(key, body, duration * 1000);
+        res.sendResponse(body)
+      }
+      next()
+    }
+  }
+}
+
 app.use(express.static('public'));
 
 app.get('/fixtures', (req, res) => {
   res.json(fixtures)
 })
 
-app.get('*', (req, res) => {
+app.get('*', cache(30), (req, res) => {
   fetch('http://localhost:3000/fixtures')
     .then(response => response.json())
     .then(data => {
@@ -21,7 +41,6 @@ app.get('*', (req, res) => {
       const {html, css} = StyleSheetServer.renderStatic(() => {
           return renderToString(<App data={data} />);
       });
-
       res.send(`
         <html>
           <head>
@@ -36,7 +55,7 @@ app.get('*', (req, res) => {
             <script>window.renderedClassNames = ${JSON.stringify(css.renderedClassNames)};</script>
           </body>
         </html>`
-        );
+      );
     })
 });
 
