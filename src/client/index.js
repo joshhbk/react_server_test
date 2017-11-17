@@ -2,13 +2,13 @@ import React from 'react';
 import { hydrate } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { StyleSheet } from 'aphrodite';
-import Routes from './Routes';
+import App from '../assets/App';
 
 StyleSheet.rehydrate(window.renderedClassNames);
 
 hydrate(
   <BrowserRouter>
-    <Routes />
+    <App />
   </BrowserRouter>,
   document.getElementById('root')
 );

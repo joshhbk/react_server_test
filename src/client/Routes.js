@@ -1,11 +1,10 @@
-import React from 'react';
-import {Route} from 'react-router-dom';
-import App from '../assets/App';
+import Fixtures from '../assets/Fixtures';
 
-export default () => {
-  return (
-    <div>
-      <Route exact path="/" component={App} />
-    </div>
-  )
-}
+const routes = [
+  {
+    path: "/",
+    component: Fixtures,
+  }
+];
+
+export default routes;

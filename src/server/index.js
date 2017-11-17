@@ -5,6 +5,7 @@ import {renderToString} from 'react-dom/server';
 import {StyleSheetServer} from 'aphrodite';
 import {StaticRouter} from 'react-router-dom';
 import Routes from '../client/Routes';
+import App from '../assets/App';
 import fixtures from '../../data/competition-id-10.json';
 import 'isomorphic-fetch';
 
@@ -36,11 +37,12 @@ app.get('*', cache(30), (req, res) => {
   fetch('http://localhost:3000/fixtures')
     .then(response => response.json())
     .then(data => {
+      console.log('got here')
       const context = {data};
       const {html, css} = StyleSheetServer.renderStatic(() => {
         return renderToString(
           <StaticRouter location={req.url} context={context}>
-            <Routes />
+            <App />
           </StaticRouter>
         );
       });
