@@ -3,9 +3,11 @@ import mcache from 'memory-cache';
 import React from 'react';
 import {renderToString} from 'react-dom/server';
 import {StyleSheetServer} from 'aphrodite';
-import App from '../assets/App';
+import {StaticRouter} from 'react-router-dom';
+import Routes from '../client/Routes';
 import fixtures from '../../data/competition-id-10.json';
 import 'isomorphic-fetch';
+
 const app = express();
 
 const cache = (duration) => (req, res, next) => {
@@ -34,11 +36,14 @@ app.get('*', cache(30), (req, res) => {
   fetch('http://localhost:3000/fixtures')
     .then(response => response.json())
     .then(data => {
-
+      const context = {data};
       const {html, css} = StyleSheetServer.renderStatic(() => {
-          return renderToString(<App data={data} />);
+        return renderToString(
+          <StaticRouter location={req.url} context={context}>
+            <Routes />
+          </StaticRouter>
+        );
       });
-      setTimeout(() => {
 
       res.send(`
         <html>
@@ -57,7 +62,6 @@ app.get('*', cache(30), (req, res) => {
           </body>
         </html>`
       );
-    }, 5000) //setTimeout was used to simulate a slow processing request
 
     })
 });

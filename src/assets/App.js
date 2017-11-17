@@ -8,8 +8,8 @@ class App extends Component {
 
     let fixtures;
 
-    if (props.data) {
-      fixtures = props.data;
+    if (props.staticContext) {
+      fixtures = props.staticContext.data;
     } else {
       fixtures = window.__data__;
       delete window.__data__;
@@ -44,7 +44,7 @@ class App extends Component {
         <ul>
           {this.state.fixtures.map((fixture, i) => {
             return <li key={i}><a onClick={this.testClick}>{fixture.competitionDate}</a></li>
-          })}              
+          })}
         </ul>
       </div>
     )

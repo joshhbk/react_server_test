@@ -1,7 +1,14 @@
 import React from 'react';
 import { hydrate } from 'react-dom';
-import App from '../assets/App';
+import { BrowserRouter } from 'react-router-dom';
 import { StyleSheet } from 'aphrodite';
+import Routes from './Routes';
 
 StyleSheet.rehydrate(window.renderedClassNames);
-hydrate(<App />, document.getElementById('root'));
+
+hydrate(
+  <BrowserRouter>
+    <Routes />
+  </BrowserRouter>,
+  document.getElementById('root')
+);
